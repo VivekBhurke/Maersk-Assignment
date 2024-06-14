@@ -25,3 +25,57 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
+const slides = document.querySelector('.slides');
+const slide = document.querySelectorAll('.slide');
+const prevBtn = document.querySelector('.prev');
+const nextBtn = document.querySelector('.next');
+let currentIndex = 0;
+
+prevBtn.addEventListener('click', () => {
+    if (currentIndex === 0) {
+        currentIndex = slide.length - 1;
+    } else {
+        currentIndex--;
+    }
+    updateSlidePosition();
+});
+
+nextBtn.addEventListener('click', () => {
+    if (currentIndex === slide.length - 1) {
+        currentIndex = 0;
+    } else {
+        currentIndex++;
+    }
+    updateSlidePosition();
+});
+
+function updateSlidePosition() {
+    slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+}
+
+// Optional: Auto-slide functionality
+let autoSlideInterval = setInterval(() => {
+    if (currentIndex === slide.length - 1) {
+        currentIndex = 0;
+    } else {
+        currentIndex++;
+    }
+    updateSlidePosition();
+}, 2000);
+
+// Pause auto-slide on hover
+document.querySelector('.slider').addEventListener('mouseover', () => {
+    clearInterval(autoSlideInterval);
+});
+
+document.querySelector('.slider').addEventListener('mouseout', () => {
+    autoSlideInterval = setInterval(() => {
+        if (currentIndex === slide.length - 1) {
+            currentIndex = 0;
+        } else {
+            currentIndex++;
+        }
+        updateSlidePosition();
+    }, 2000);
+});
