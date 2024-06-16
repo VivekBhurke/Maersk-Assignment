@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     const form = document.querySelector("form");
-    
+
     form.addEventListener("submit", function(event) {
         const name = document.getElementById("name").value.trim();
         const email = document.getElementById("email").value.trim();
@@ -24,58 +24,31 @@ document.addEventListener("DOMContentLoaded", function() {
             event.preventDefault();
         }
     });
-});
 
-const slides = document.querySelector('.slides');
-const slide = document.querySelectorAll('.slide');
-const prevBtn = document.querySelector('.prev');
-const nextBtn = document.querySelector('.next');
-let currentIndex = 0;
+    // Slider logic
+    const slides = document.querySelectorAll('.slide');
+    const next = document.querySelector('.next');
+    const prev = document.querySelector('.prev');
+    let currentIndex = 0;
 
-prevBtn.addEventListener('click', () => {
-    if (currentIndex === 0) {
-        currentIndex = slide.length - 1;
-    } else {
-        currentIndex--;
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.classList.remove('active');
+            if (i === index) {
+                slide.classList.add('active');
+            }
+        });
     }
-    updateSlidePosition();
-});
 
-nextBtn.addEventListener('click', () => {
-    if (currentIndex === slide.length - 1) {
-        currentIndex = 0;
-    } else {
-        currentIndex++;
-    }
-    updateSlidePosition();
-});
+    next.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % slides.length;
+        showSlide(currentIndex);
+    });
 
-function updateSlidePosition() {
-    slides.style.transform = `translateX(-${currentIndex * 100}%)`;
-}
+    prev.addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+        showSlide(currentIndex);
+    });
 
-// Optional: Auto-slide functionality
-let autoSlideInterval = setInterval(() => {
-    if (currentIndex === slide.length - 1) {
-        currentIndex = 0;
-    } else {
-        currentIndex++;
-    }
-    updateSlidePosition();
-}, 2000);
-
-// Pause auto-slide on hover
-document.querySelector('.slider').addEventListener('mouseover', () => {
-    clearInterval(autoSlideInterval);
-});
-
-document.querySelector('.slider').addEventListener('mouseout', () => {
-    autoSlideInterval = setInterval(() => {
-        if (currentIndex === slide.length - 1) {
-            currentIndex = 0;
-        } else {
-            currentIndex++;
-        }
-        updateSlidePosition();
-    }, 2000);
+    showSlide(currentIndex); // Initialize the first slide
 });
