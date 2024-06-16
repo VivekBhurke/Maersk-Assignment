@@ -76,7 +76,38 @@ header nav ul li a:hover {
         opacity: 1;
     }
 }
+@media (max-width: 768px) {
+    .nav-toggle {
+        display: block;
+    }
 
+    header nav {
+        display: none;
+    }
+
+    header nav.active {
+        display: block;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    header nav ul {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    header nav ul li {
+        margin: 10px 0;
+    }
+
+    header nav ul li a {
+        font-size: 24px;
+    }
+}
 /* home Image with Gradient */
 .home-image {
     position: relative;
@@ -136,6 +167,7 @@ section {
 }
 
 /* Slider specific styles */
+/* Slider specific styles */
 .product {
     max-width: 100%;
     margin: auto;
@@ -163,13 +195,15 @@ section {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
 }
 
 .slide.active {
     display: flex;
     opacity: 1;
-    transform: scale(1.05);
+    transform: scale(1);
 }
 
 .slide img {
@@ -178,6 +212,7 @@ section {
     object-fit: cover; /* Maintain aspect ratio and cover the box */
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: zoomIn 0.5s ease-in-out;
 }
 
 .description {
@@ -185,13 +220,16 @@ section {
     max-width: 50%;
     text-align: left;
     overflow-wrap: break-word;
+    animation: fadeInUp 0.5s ease-in-out;
 }
+
 .description h3 {
     font-family: 'Pacifico', cursive;
     font-size: 40px;
     line-height: 1.6;
     color: #d2691e;
 }
+
 .description p {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 20px;
@@ -245,6 +283,59 @@ button.next {
         top: 90%;
     }
 }
+
+/* Animations */
+@keyframes zoomIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.slide.active {
+    display: flex;
+    opacity: 1;
+    transform: scale(1);
+    animation: slideInRight 0.5s ease-in-out;
+}
+
 .about {
     background-color: #fff;
     padding: 60px 20px;

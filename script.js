@@ -50,5 +50,5 @@ document.addEventListener("DOMContentLoaded", function() {
         showSlide(currentIndex);
     });
 
-    showSlide(currentIndex); // Initialize the first slide
+    showSlide(currentIndex);
 });
