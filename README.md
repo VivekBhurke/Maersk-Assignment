@@ -1,2 +1,2 @@
-# Vivek Bhurke_Walchand College of Engineering_Sangli_Assessment
+# Maersk Web Dev
 Assessment 1
